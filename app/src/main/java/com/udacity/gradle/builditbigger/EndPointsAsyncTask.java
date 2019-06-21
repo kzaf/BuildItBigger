@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -8,10 +9,12 @@ import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
+import com.zaf.androidLib.JokeActivity;
+import com.zaf.javalib.JavaJokerClass;
 
 import java.io.IOException;
 
-class EndPointsAsyncTask extends AsyncTask<Context, Void, String> {
+public class EndPointsAsyncTask extends AsyncTask<Context, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
 
@@ -44,20 +47,16 @@ class EndPointsAsyncTask extends AsyncTask<Context, Void, String> {
         }
     }
 
-    private TaskCompleteListener mTaskCompleteListener;
-
-    public interface TaskCompleteListener {
-        void onTaskComplete(String result);
-    }
-
-    public EndPointsAsyncTask(TaskCompleteListener listener) {
-        mTaskCompleteListener = listener;
-    }
 
     @Override
     protected void onPostExecute(String result) {
         if (result != null) {
-            mTaskCompleteListener.onTaskComplete(result);
+
+            JavaJokerClass javaJokerClass = new JavaJokerClass();
+
+            Intent intent = new Intent(context, JokeActivity.class);
+            intent.putExtra(JokeActivity.JOKE_KEY, javaJokerClass.JokeFromJavaLib());
+
         }
     }
 }

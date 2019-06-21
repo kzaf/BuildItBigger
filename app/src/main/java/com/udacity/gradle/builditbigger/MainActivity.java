@@ -1,15 +1,10 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import com.zaf.androidLib.JokeActivity;
-import com.zaf.javalib.JavaJokerClass;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,14 +38,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        new EndPointsAsyncTask(new EndPointsAsyncTask.TaskCompleteListener() {
-            @Override
-            public void onTaskComplete(String result) {
-                JavaJokerClass javaJokerClass = new JavaJokerClass();
 
-                Intent intent = new Intent(MainActivity.this, JokeActivity.class);
-                intent.putExtra(JokeActivity.JOKE_KEY, javaJokerClass.JokeFromJavaLib());
-            }
-        }).execute(this);
+        EndPointsAsyncTask endpointsAsyncTask = new EndPointsAsyncTask();
+        endpointsAsyncTask.execute(this);
+
     }
 }
