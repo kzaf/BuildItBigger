@@ -3,6 +3,7 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -51,12 +52,16 @@ public class EndPointsAsyncTask extends AsyncTask<Context, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if (result != null) {
+            if (result.equals("Failed to connect to /10.0.2.2:8080")){
+                Toast.makeText(context, context.getResources().getString(R.string.goole_cloud_not_running_toast), Toast.LENGTH_SHORT).show();
+            }else{
+                JavaJokerClass javaJokerClass = new JavaJokerClass();
 
-            JavaJokerClass javaJokerClass = new JavaJokerClass();
+                Intent intent = new Intent(context, JokeActivity.class);
+                intent.putExtra(JokeActivity.JOKE_KEY, javaJokerClass.JokeFromJavaLib());
 
-            Intent intent = new Intent(context, JokeActivity.class);
-            intent.putExtra(JokeActivity.JOKE_KEY, javaJokerClass.JokeFromJavaLib());
-
+                context.startActivity(intent);
+            }
         }
     }
 }
