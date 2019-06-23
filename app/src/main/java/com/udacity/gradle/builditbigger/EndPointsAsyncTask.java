@@ -44,24 +44,22 @@ public class EndPointsAsyncTask extends AsyncTask<Context, Void, String> {
         try {
             return myApiService.getRandomJoke().execute().getData();
         } catch (IOException e) {
-            return e.getMessage();
+            return "";
         }
     }
 
 
     @Override
     protected void onPostExecute(String result) {
-        if (result != null) {
-            if (result.equals("Failed to connect to /10.0.2.2:8080")){
-                Toast.makeText(context, context.getResources().getString(R.string.goole_cloud_not_running_toast), Toast.LENGTH_SHORT).show();
-            }else{
-                JavaJokerClass javaJokerClass = new JavaJokerClass();
+        if (!result.equals("")) {
+            JavaJokerClass javaJokerClass = new JavaJokerClass();
 
-                Intent intent = new Intent(context, JokeActivity.class);
-                intent.putExtra(JokeActivity.JOKE_KEY, javaJokerClass.JokeFromJavaLib());
+            Intent intent = new Intent(context, JokeActivity.class);
+            intent.putExtra(JokeActivity.JOKE_KEY, javaJokerClass.JokeFromJavaLib());
 
-                context.startActivity(intent);
-            }
+            context.startActivity(intent);
+        }else{
+            Toast.makeText(context, context.getResources().getString(R.string.goole_cloud_not_running_toast), Toast.LENGTH_SHORT).show();
         }
     }
 }
