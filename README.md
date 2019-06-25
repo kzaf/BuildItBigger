@@ -1,3 +1,5 @@
+![Untitled](https://user-images.githubusercontent.com/11368889/60121902-c520fd80-978c-11e9-9c0f-98c5e9aa003c.png)
+
 # Gradle for Android and Java Final Project
 
 In this project, I have created an app with multiple flavors that uses
